@@ -19,6 +19,5 @@ def home():
 def predict():
     return {"value" : model.pkl}
 
-
 if __name__ == '__main__':
     app.run()
