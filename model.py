@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import sklearn as sk
+import pickle
 
 # Import necessary modules
 from sklearn.model_selection import train_test_split
@@ -49,7 +50,13 @@ model.compile('adam', loss='mean_squared_error')
 model.fit(X_train, y_train, epochs=500)
 model.predict([10.0,15.0,20.0,25.0])
 model.evaluate(X_test, y_test)
-model.save("model.h5")
+model.fit(X, y)
 
-print("Predict Power output for speed: 10mph, 15mph, 20mph, 25mph ", model.predict([10.0,15.0,20.0,25.0]))
+# Saving model to current directory
+# Pickle serializes objects so they can be saved to a file, and loaded in a program again later on.
+pickle.dump(model, open('model.pkl','wb'))
+
+#Loading model to compare the results
+model1 = pickle.load(open('model.pkl','rb'))
+print(model1.predict([[5.0, 15.0, 20.0]]))
 
